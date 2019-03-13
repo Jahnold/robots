@@ -23,7 +23,7 @@ class Grid(private val width: Int, private val height: Int) {
     private fun isPreviousLostLocation(position: Position, command: Command, edges: List<Edge>): Boolean {
 
         edges.forEach { edge ->
-            if (edge.position == position && edge.command == command) return true
+            if (edge.position == position && edge.command::class == command::class) return true
         }
         return false
     }
@@ -36,8 +36,8 @@ class Grid(private val width: Int, private val height: Int) {
         return isInX && isInY
     }
 
-    sealed class Result {
-        data class Success(val position: Position): Result()
-        data class Lost(val position: Position): Result()
+    sealed class Result(val position: Position) {
+        class Success(position: Position): Result(position)
+        class Lost(position: Position): Result(position)
     }
 }
