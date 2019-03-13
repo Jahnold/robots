@@ -20,21 +20,19 @@ object Main {
 
             var position = start
             var result: Grid.Result = Grid.Result.Success(start)
-            commands.forEach { command ->
+            for (command in commands) {
                 result = grid.transform(position, command, edges)
-                if (result is Grid.Result.Success) {
-                    position = result.position
-                } else {
+                position = result.position
+                if (result is Grid.Result.Lost) {
                     val edge = Edge(result.position, command)
                     edges.add(edge)
-                    return@forEach
+                    break
                 }
             }
 
-            println("${result.position.x} ${result.position.y} ${result.position.direction.name.substring(0, 1)}")
+            val lost = if (result is Grid.Result.Lost) "LOST" else ""
+            println("${result.position.x} ${result.position.y} ${result.position.direction.name.substring(0, 1)} $lost")
 
         } while (true)
     }
-
-
 }

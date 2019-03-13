@@ -55,9 +55,18 @@ class GridTest {
     }
 
     @Test
-    fun `transform - should return Lost when robot is moved off the grid`() {
+    fun `transform - should return Lost when robot is moved off bottom the grid`() {
 
         val start = Position(1 ,0, Direction.SOUTH)
+        val result = grid.transform(start, Forward(), emptyList())
+
+        assertThat(result).isInstanceOf(Grid.Result.Lost::class.java)
+    }
+
+    @Test
+    fun `transform - should return Lost when robot is moved off top the grid`() {
+
+        val start = Position(3 ,3, Direction.NORTH)
         val result = grid.transform(start, Forward(), emptyList())
 
         assertThat(result).isInstanceOf(Grid.Result.Lost::class.java)
