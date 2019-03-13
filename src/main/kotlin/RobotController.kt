@@ -1,3 +1,4 @@
+import data.Direction
 import data.Edge
 
 class RobotController(
@@ -29,6 +30,6 @@ class RobotController(
 
     private fun getResultString(result: Grid.Result): String {
         val lost = if (result is Grid.Result.Lost) "LOST" else ""
-        return "${result.position.x} ${result.position.y} ${result.position.direction.name.substring(0, 1)} $lost"
+        return "${result.position.x} ${result.position.y} ${result.position.direction.name.substring(0, 1)} $lost".trim()
     }
 }
